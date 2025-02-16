@@ -24,16 +24,26 @@ const IpadLarge = () => {
 
   return (
     <Wrapper>
-      <Screen>
-        {quizStep === 1 && (
-          <IpadQuiz1 setQuizStep={setQuizStep} quiz={quiz} setQuiz={setQuiz} />
-        )}
-        {quizStep === 2 && (
-          <IpadQuiz2 setQuizStep={setQuizStep} quiz={quiz} setQuiz={setQuiz} />
-        )}
-        {quizStep === 3 && <IpadQuizSuccess />}
-        {quizStep === 4 && <IpadQuizFail setQuizStep={setQuizStep} />}
-      </Screen>
+      <PadContainer>
+        <Screen>
+          {quizStep === 1 && (
+            <IpadQuiz1
+              setQuizStep={setQuizStep}
+              quiz={quiz}
+              setQuiz={setQuiz}
+            />
+          )}
+          {quizStep === 2 && (
+            <IpadQuiz2
+              setQuizStep={setQuizStep}
+              quiz={quiz}
+              setQuiz={setQuiz}
+            />
+          )}
+          {quizStep === 3 && <IpadQuizSuccess />}
+          {quizStep === 4 && <IpadQuizFail setQuizStep={setQuizStep} />}
+        </Screen>
+      </PadContainer>
     </Wrapper>
   );
 };
@@ -52,14 +62,28 @@ const Wrapper = styled.div`
   align-items: center;
 `;
 
+const PadContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  /* background-color: pink;
+  opacity: 0.4; */
+  aspect-ratio: 1459 / 1072;
+  width: 100%;
+  position: relative;
+`;
+
 const Screen = styled.div`
   width: 75%;
   height: 75%;
   padding: 3%;
 
-  @media screen and (orientation: landscape) and (max-height: 500px) and (max-aspect-ratio: 1.8),
+  // background-color: green;
+
+  /* @media screen and (orientation: landscape) and (max-height: 500px) and (max-aspect-ratio: 1.8),
     (orientation: portrait) and (max-width: 500px) and (min-aspect-ratio: 0.56) {
     // 화면 길쭉하지 않은 것들 예외 처리
     height: 65%;
-  }
+  } */
 `;

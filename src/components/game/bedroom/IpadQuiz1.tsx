@@ -37,8 +37,8 @@ const IpadQuiz1: React.FC<IpadQuiz1Props> = ({
       <Title>오늘의 경제 퀴즈 #1</Title>
       <Quiz>
         <QuizText>
-          Q. 경제에 대한 불확실성이 커지면 투자 심리도 함께 얼어붙어 {"\n"}
-          주가가
+        Q. 경제에 대한 불확실성이 커지면 투자 심리도 함께 얼어붙어 {"\n"}
+        주가가
         </QuizText>
         <QuizChoice>
           <QuizImage
@@ -59,7 +59,6 @@ const IpadQuiz1: React.FC<IpadQuiz1Props> = ({
             onClick={() => clickChoice(true)}
           />
         </QuizChoice>
-        <QuizText>할 가능성이 커집니다.</QuizText>
       </Quiz>
       <Move>
         <NextBtn checked={quiz[choiceId].checked} onClick={clickNextBtn}>
@@ -83,29 +82,19 @@ const Wrapper = styled.div`
 
 const Title = styled.div`
   font-family: GowunBatang-Regular;
-  font-size: 24px;
-
-  @media screen and (max-width: 500px), (max-height: 500px) {
-    // 모바일
-    font-size: 16px;
-  }
+  font-size: 1.7vmax;
 `;
 
 const Quiz = styled.div``;
 
 const QuizText = styled.div`
   font-family: Pretendard-Regular;
-  text-align: center;
   word-break: keep-all;
   white-space: pre-wrap;
 
-  font-size: 20px;
-  line-height: 30px;
-  @media screen and (max-width: 500px), (max-height: 500px) {
-    // 모바일
-    font-size: 12px;
-    line-height: 16px;
-  }
+  font-size: 1.155vmax;
+  line-height: 1.7vmax;
+  
 `;
 
 const QuizChoice = styled.div`
