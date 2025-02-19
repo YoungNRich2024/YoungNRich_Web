@@ -6,19 +6,19 @@ import { bedroomEscapeData } from "../../../data/bedroomData";
 
 interface IpadQuiz2Props {
   setQuizStep: React.Dispatch<React.SetStateAction<number>>; // 아이패드 퀴즈 단계 설정 함수
-  quiz: QuizItem[]; // 아이패드 퀴즈 답안
-  setQuiz: React.Dispatch<React.SetStateAction<QuizItem[]>>; // 아이패드 퀴즈 답안 선택 설정 함수
+  quizState: QuizItem[]; // 아이패드 퀴즈 답안
+  setQuizState: React.Dispatch<React.SetStateAction<QuizItem[]>>; // 아이패드 퀴즈 답안 선택 설정 함수
 }
 // 침실 아이패드 2
 const IpadQuiz2: React.FC<IpadQuiz2Props> = ({
   setQuizStep,
-  quiz,
-  setQuiz,
+  quizState,
+  setQuizState,
 }) => {
   // submit 클릭 시 실행되는 함수
   const clickSubmit = () => {
     // 퀴즈가 정답인지 확인
-    if (JSON.stringify(quiz) === JSON.stringify(bedroomEscapeData)) {
+    if (JSON.stringify(quizState) === JSON.stringify(bedroomEscapeData)) {
       // alert("성공");
       setQuizStep(3);
     } else {
@@ -37,8 +37,8 @@ const IpadQuiz2: React.FC<IpadQuiz2Props> = ({
             toggleId={1}
             labelOne={"줄어들고"}
             labelTwo={"늘어나고"}
-            quiz={quiz}
-            setQuiz={setQuiz}
+            quiz={quizState}
+            setQuiz={setQuizState}
           />
         </QuizLine>
 
@@ -48,8 +48,8 @@ const IpadQuiz2: React.FC<IpadQuiz2Props> = ({
             toggleId={2}
             labelOne={"많아져"}
             labelTwo={"적어져"}
-            quiz={quiz}
-            setQuiz={setQuiz}
+            quiz={quizState}
+            setQuiz={setQuizState}
           />
           <QuizText>주식 시장에도 돈이 몰리게 되면서 </QuizText>
         </QuizLine>
@@ -60,8 +60,8 @@ const IpadQuiz2: React.FC<IpadQuiz2Props> = ({
             toggleId={3}
             labelOne={"상승"}
             labelTwo={"하락"}
-            quiz={quiz}
-            setQuiz={setQuiz}
+            quiz={quizState}
+            setQuiz={setQuizState}
           />
           <QuizText>할 가능성이 높아집니다.</QuizText>
         </QuizLine>

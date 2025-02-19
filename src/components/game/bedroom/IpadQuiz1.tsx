@@ -2,24 +2,25 @@ import React from "react";
 import styled from "styled-components";
 import ic_upgraph from "../../../assets/bedroom/ic_upgraph.png";
 import ic_downgraph from "../../../assets/bedroom/ic_downgraph.png";
+import ic_graph from "../../../assets/bedroom/ic_graph.png";
 import { QuizItem } from "./IpadLarge";
 
 interface IpadQuiz1Props {
   setQuizStep: React.Dispatch<React.SetStateAction<number>>; // 아이패드 퀴즈 단계 설정 함수
-  quiz: QuizItem[]; // 아이패드 퀴즈 답안
-  setQuiz: React.Dispatch<React.SetStateAction<QuizItem[]>>; // 아이패드 퀴즈 답안 선택 설정 함수
+  quizState: QuizItem[]; // 아이패드 퀴즈 답안
+  setQuizState: React.Dispatch<React.SetStateAction<QuizItem[]>>; // 아이패드 퀴즈 답안 선택 설정 함수
 }
 // 침실 아이패드 퀴즈1
 const IpadQuiz1: React.FC<IpadQuiz1Props> = ({
   setQuizStep,
-  quiz,
-  setQuiz,
+  quizState,
+  setQuizState,
 }) => {
   const choiceId = 0; // 답안 번호
 
   // 이미지 선택 시 실행되는 함수
   const clickChoice = (choice: boolean) => {
-    setQuiz((prevQuiz) =>
+    setQuizState((prevQuiz) =>
       prevQuiz.map((item) =>
         item.id === choiceId ? { ...item, checked: choice } : item
       )
@@ -37,8 +38,7 @@ const IpadQuiz1: React.FC<IpadQuiz1Props> = ({
       <Title>오늘의 경제 퀴즈 #1</Title>
       <Quiz>
         <QuizText>
-        Q. 경제에 대한 불확실성이 커지면 투자 심리도 함께 얼어붙어 {"\n"}
-        주가가
+          Q. 주식에 대한 설명으로 옳은 것은?
         </QuizText>
         <QuizChoice>
           <QuizImage
@@ -46,8 +46,8 @@ const IpadQuiz1: React.FC<IpadQuiz1Props> = ({
             alt="상승"
             checked={
               // undefined일 때는 선택 안되도록
-              typeof quiz[choiceId].checked === "boolean"
-                ? !quiz[choiceId].checked
+              typeof quizState[choiceId].checked === "boolean"
+                ? !quizState[choiceId].checked
                 : undefined
             }
             onClick={() => clickChoice(false)}
@@ -55,13 +55,13 @@ const IpadQuiz1: React.FC<IpadQuiz1Props> = ({
           <QuizImage
             src={ic_downgraph}
             alt="하락"
-            checked={quiz[choiceId].checked}
+            checked={quizState[choiceId].checked}
             onClick={() => clickChoice(true)}
           />
         </QuizChoice>
       </Quiz>
       <Move>
-        <NextBtn checked={quiz[choiceId].checked} onClick={clickNextBtn}>
+        <NextBtn checked={quizState[choiceId].checked} onClick={clickNextBtn}>
           next ▶
         </NextBtn>
       </Move>
@@ -94,7 +94,6 @@ const QuizText = styled.div`
 
   font-size: 1.155vmax;
   line-height: 1.7vmax;
-  
 `;
 
 const QuizChoice = styled.div`

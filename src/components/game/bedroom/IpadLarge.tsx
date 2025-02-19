@@ -15,7 +15,7 @@ export interface QuizItem {
 // 아이패드 확대
 const IpadLarge = () => {
   const [quizStep, setQuizStep] = useState(1); // 아이패드 퀴즈 단계
-  const [quiz, setQuiz] = useState<QuizItem[]>([
+  const [quizState, setQuizState] = useState<QuizItem[]>([
     { id: 0, checked: undefined },
     { id: 1, checked: false },
     { id: 2, checked: false },
@@ -29,15 +29,15 @@ const IpadLarge = () => {
           {quizStep === 1 && (
             <IpadQuiz1
               setQuizStep={setQuizStep}
-              quiz={quiz}
-              setQuiz={setQuiz}
+              quizState={quizState}
+              setQuizState={setQuizState}
             />
           )}
           {quizStep === 2 && (
             <IpadQuiz2
               setQuizStep={setQuizStep}
-              quiz={quiz}
-              setQuiz={setQuiz}
+              quizState={quizState}
+              setQuizState={setQuizState}
             />
           )}
           {quizStep === 3 && <IpadQuizSuccess />}
