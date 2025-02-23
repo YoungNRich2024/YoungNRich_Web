@@ -9,18 +9,42 @@ import IpadQuizFail from "./IpadQuizFail";
 // 퀴즈 아이템 타입 정의
 export interface QuizItem {
   id: number;
-  checked: boolean | undefined;
+  checked: boolean | undefined | 1 | 2 | 3 | 4;
 }
+
+export interface BoolQuizItem {
+  id: number;
+  checked: boolean | undefined;
+} // 선택형
+
+export interface NumQuizItem {
+  id: number;
+  checked: 1 | 2 | 3 | 4 | undefined;
+} // 객관식
 
 // 아이패드 확대
 const IpadLarge = () => {
   const [quizStep, setQuizStep] = useState(1); // 아이패드 퀴즈 단계
   const [quizState, setQuizState] = useState<QuizItem[]>([
-    { id: 0, checked: undefined },
-    { id: 1, checked: false },
-    { id: 2, checked: false },
-    { id: 3, checked: false },
-  ]); // 아이패드 퀴즈 답안 선택 (왼쪽 선택이 false, 오른쪽 선택이 true)
+    { id: 0, checked: undefined }, // 1번
+    { id: 1, checked: undefined },
+    { id: 2, checked: undefined },
+    { id: 3, checked: undefined }, // 2번
+    { id: 4, checked: undefined }, // 3번
+    { id: 5, checked: undefined }, // 4번
+  ]); // 아이패드 퀴즈 답안 선택 
+
+  const [boolQuizState, setBoolQuizState] = useState<BoolQuizItem[]>([
+    { id: 2, checked: undefined }, 
+    { id: 2, checked: undefined },
+    { id: 2, checked: undefined },
+  ]); // 아이패드 2번째 퀴즈 답안 선택
+
+  const [numQuizState, setNumQuizState] = useState<NumQuizItem[]>([
+    { id: 1, checked: undefined }, 
+    { id: 3, checked: undefined },
+    { id: 4, checked: undefined },
+  ]); // 아이패드 1, 3, 4번째 퀴즈 답안 선택 
 
   return (
     <Wrapper>
@@ -29,8 +53,9 @@ const IpadLarge = () => {
           {quizStep === 1 && (
             <IpadQuiz1
               setQuizStep={setQuizStep}
-              quizState={quizState}
-              setQuizState={setQuizState}
+              quizState={numQuizState}
+              setQuizState={setNumQuizState}
+              choiceId={1}
             />
           )}
           {quizStep === 2 && (

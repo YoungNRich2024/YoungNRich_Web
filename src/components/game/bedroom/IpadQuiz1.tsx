@@ -1,25 +1,26 @@
 import React from "react";
-import styled from "styled-components";
-import ic_upgraph from "../../../assets/bedroom/ic_upgraph.png";
-import ic_downgraph from "../../../assets/bedroom/ic_downgraph.png";
-import ic_graph from "../../../assets/bedroom/ic_graph.png";
-import { QuizItem } from "./IpadLarge";
+import styled, { css } from "styled-components";
+import { NumQuizItem } from "./IpadLarge";
+import { bedroomIpadQuizInfo } from "../../../data/bedroomData";
 
 interface IpadQuiz1Props {
   setQuizStep: React.Dispatch<React.SetStateAction<number>>; // 아이패드 퀴즈 단계 설정 함수
-  quizState: QuizItem[]; // 아이패드 퀴즈 답안
-  setQuizState: React.Dispatch<React.SetStateAction<QuizItem[]>>; // 아이패드 퀴즈 답안 선택 설정 함수
+  quizState: NumQuizItem[]; // 아이패드 퀴즈 답안
+  setQuizState: React.Dispatch<React.SetStateAction<NumQuizItem[]>>; // 아이패드 퀴즈 답안 선택 설정 함수
+  choiceId: number; // 문제 번호
 }
 // 침실 아이패드 퀴즈1
 const IpadQuiz1: React.FC<IpadQuiz1Props> = ({
   setQuizStep,
   quizState,
   setQuizState,
+  choiceId,
 }) => {
-  const choiceId = 0; // 답안 번호
+  const quizInfo = bedroomIpadQuizInfo.find((item) => item.id === choiceId); // 문제 정보
+  const checkedValue = quizState.find((item) => item.id === choiceId)?.checked; // 현재 선택한 번호
 
   // 이미지 선택 시 실행되는 함수
-  const clickChoice = (choice: boolean) => {
+  const clickChoice = (choice: 1 | 2 | 3 | 4) => {
     setQuizState((prevQuiz) =>
       prevQuiz.map((item) =>
         item.id === choiceId ? { ...item, checked: choice } : item
@@ -35,33 +36,25 @@ const IpadQuiz1: React.FC<IpadQuiz1Props> = ({
 
   return (
     <Wrapper>
-      <Title>오늘의 경제 퀴즈 #1</Title>
+      <Title>오늘의 경제 퀴즈 #{choiceId}</Title>
       <Quiz>
-        <QuizText>
-          Q. 주식에 대한 설명으로 옳은 것은?
-        </QuizText>
+        <QuizText>Q. {quizInfo?.question}</QuizText>
         <QuizChoice>
-          <QuizImage
-            src={ic_upgraph}
-            alt="상승"
-            checked={
-              // undefined일 때는 선택 안되도록
-              typeof quizState[choiceId].checked === "boolean"
-                ? !quizState[choiceId].checked
-                : undefined
-            }
-            onClick={() => clickChoice(false)}
-          />
-          <QuizImage
-            src={ic_downgraph}
-            alt="하락"
-            checked={quizState[choiceId].checked}
-            onClick={() => clickChoice(true)}
-          />
+          {quizInfo?.choices.map((item, index) => {
+            return (
+              <QuizItem
+                key={index}
+                $checked={checkedValue == index + 1}
+                onClick={() => clickChoice((index + 1) as 1 | 2 | 3 | 4)}
+              >
+                {item}
+              </QuizItem>
+            );
+          })}
         </QuizChoice>
       </Quiz>
       <Move>
-        <NextBtn checked={quizState[choiceId].checked} onClick={clickNextBtn}>
+        <NextBtn $checked={checkedValue} onClick={clickNextBtn}>
           next ▶
         </NextBtn>
       </Move>
@@ -99,25 +92,37 @@ const QuizText = styled.div`
 const QuizChoice = styled.div`
   display: flex;
   justify-content: center;
-  gap: 20px;
-  margin: 20px 0;
+  align-items: center;
+  flex-direction: column;
+  gap: 16px;
 
-  @media screen and (max-width: 500px), (max-height: 500px) {
-    // 모바일
-    margin: 10px 0;
-  }
+  margin: 4% 0;
 `;
 
-const QuizImage = styled.img<{ checked: boolean | undefined }>`
-  width: 25%;
+const QuizItem = styled.div<{ $checked: boolean | undefined }>`
+  width: 90%;
+  box-sizing: border-box;
+  padding: 2%;
+  border-radius: 20px;
+
+  font-size: 1vmax;
+  font-family: "Pretendard-Regular";
+  text-align: center;
+
+  background-color: var(--ipadPurple);
+
   cursor: pointer;
 
   &:hover {
     filter: brightness(0.7);
   }
 
-  // 선택되었을 때 scale 1.1 해주기
-  transform: ${(props) => (props.checked === true ? "scale(1.1)" : "scale(1)")};
+  ${(props) =>
+    props.$checked &&
+    css`
+      background-color: var(--ipadPink);
+      scale: 1.1;
+    `}
 `;
 
 const Move = styled.div`
@@ -125,13 +130,12 @@ const Move = styled.div`
   justify-content: flex-end;
 `;
 
-const NextBtn = styled(Title)<{ checked: boolean | undefined }>`
+const NextBtn = styled(Title)<{ $checked: 1 | 2 | 3 | 4 | undefined }>`
   font-weight: bold;
   letter-spacing: 1px;
   text-shadow: 0px 0px 10px var(--black);
   cursor: pointer;
 
   // 답안 선택되기 전까지는 hidden 처리하기
-  visibility: ${(props) =>
-    typeof props.checked === "boolean" ? "visible" : "hidden"};
+  visibility: ${(props) => (props.$checked ? "visible" : "hidden")};
 `;
