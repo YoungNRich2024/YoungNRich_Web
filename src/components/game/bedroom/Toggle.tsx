@@ -32,7 +32,7 @@ const Toggle: React.FC<ToggleProps> = ({
         type="checkbox"
         id={`toggle-${toggleId}`}
         className="toggleCheckbox"
-        checked={quiz[toggleId].checked}
+        checked={quiz[toggleId].checked === true}
         onChange={(e) => handleToggle(e.target.checked)}
       />
       <label htmlFor={`toggle-${toggleId}`} className="toggleContainer">
@@ -49,11 +49,7 @@ const Wrapper = styled.div`
   /* font-family: Pretendard-Regular; */
   font-family: GowunBatang-Regular;
   font-weight: bold;
-  font-size: 20px;
-  @media screen and (max-width: 500px), (max-height: 500px) {
-    // 모바일
-    font-size: 12px;
-  }
+  font-size: 1.155vmax;
 
   .toggleCheckbox {
     display: none;
@@ -64,9 +60,8 @@ const Wrapper = styled.div`
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     width: fit-content;
-    border: 3px solid var(--gold1);
-    background: var(--gold1);
-    color: var(--darkblue);
+    border: 1.7px solid var(--lightgray);
+    border-radius: 20px;
     cursor: pointer;
   }
 
@@ -77,9 +72,10 @@ const Wrapper = styled.div`
     width: 50%;
     height: 100%;
     left: 0%;
-    background: color-mix(in srgb, var(--gold4) 30%, transparent);
-    border: 3px solid var(--gold4);
+    background: color-mix(in srgb, var(--ipadPurple) 50%, transparent);
     box-sizing: border-box;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
 
     /* transition: all 0.3s; */
   }
@@ -87,6 +83,10 @@ const Wrapper = styled.div`
   .toggleCheckbox:checked + .toggleContainer::before {
     /* 체크된 상태에서 슬라이더 위치 변경 */
     left: 50%; /* 슬라이더를 오른쪽 끝으로 이동 */
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
   }
   .toggleContainer div {
     /* 라벨 내부의 div 스타일 설정 */
