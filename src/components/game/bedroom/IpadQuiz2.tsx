@@ -87,15 +87,14 @@ const Wrapper = styled.div`
 
 const Title = styled.div`
   font-family: GowunBatang-Regular;
-  font-size: 24px;
-
-  @media screen and (max-width: 500px), (max-height: 500px) {
-    // 모바일
-    font-size: 16px;
-  }
+  font-size: 1.7vmax;
 `;
 
-const Quiz = styled.div``;
+const Quiz = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+`;
 
 const QuizLine = styled.div`
   display: flex;
@@ -115,11 +114,7 @@ const QuizText = styled.div`
   word-break: keep-all;
   white-space: nowrap;
 
-  font-size: 20px;
-  @media screen and (max-width: 500px), (max-height: 500px) {
-    // 모바일
-    font-size: 12px;
-  }
+  font-size: 1.155vmax;
 `;
 
 const Move = styled.div`
