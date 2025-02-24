@@ -1,38 +1,40 @@
 import React from "react";
 import styled from "styled-components";
-import { QuizItem } from "./IpadLarge";
+import { BoolQuizItem } from "./IpadLarge";
 
 interface ToggleProps {
   toggleId: number; // 토글 id - 상태 변경에 사용
+  questionId: number; // 문제 번호
   labelOne: string; // 선택지1
   labelTwo: string; // 선택지2
-  quiz: QuizItem[]; // 아이패드 퀴즈 답안
-  setQuiz: React.Dispatch<React.SetStateAction<QuizItem[]>>; // 아이패드 퀴즈 답안 선택 설정 함수
+  quizState: BoolQuizItem[]; // 아이패드 퀴즈 답안
+  setQuizState: React.Dispatch<React.SetStateAction<BoolQuizItem[]>>; // 아이패드 퀴즈 답안 선택 설정 함수
 }
 
 // 침실 아이패드 퀴즈2 안의 토글
 // 왼쪽(labelOne) 선택이 false, 오른쪽(labelTwo) 선택이 true
 const Toggle: React.FC<ToggleProps> = ({
   toggleId,
+  questionId,
   labelOne,
   labelTwo,
-  quiz,
-  setQuiz,
+  quizState,
+  setQuizState,
 }) => {
+  
   const handleToggle = (isChecked: boolean) => {
-    setQuiz((prevQuiz) =>
-      prevQuiz.map((item) =>
-        item.id === toggleId ? { ...item, checked: isChecked } : item
-      )
-    );
+    let copy = [...quizState];
+    copy[toggleId] = { id: questionId, checked: isChecked };
+    setQuizState(copy);
   };
+
   return (
     <Wrapper>
       <input
         type="checkbox"
         id={`toggle-${toggleId}`}
         className="toggleCheckbox"
-        checked={quiz[toggleId].checked === true}
+        checked={quizState[toggleId].checked}
         onChange={(e) => handleToggle(e.target.checked)}
       />
       <label htmlFor={`toggle-${toggleId}`} className="toggleContainer">

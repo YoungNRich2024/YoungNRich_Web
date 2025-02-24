@@ -1,14 +1,14 @@
 import React from "react";
 import styled from "styled-components";
 import Toggle from "./Toggle";
-import { QuizItem } from "./IpadLarge";
+import { BoolQuizItem } from "./IpadLarge";
 import { bedroomEscapeData } from "../../../data/bedroomData";
 
 interface IpadQuiz2Props {
   setQuizStep: React.Dispatch<React.SetStateAction<number>>; // 아이패드 퀴즈 단계 설정 함수
-  quizState: QuizItem[]; // 아이패드 퀴즈 답안
-  setQuizState: React.Dispatch<React.SetStateAction<QuizItem[]>>; // 아이패드 퀴즈 답안 선택 설정 함수
-  questionId: number;
+  quizState: BoolQuizItem[]; // 아이패드 퀴즈 답안
+  setQuizState: React.Dispatch<React.SetStateAction<BoolQuizItem[]>>; // 아이패드 퀴즈 답안 선택 설정 함수
+  questionId: number; // 문제 번호
 }
 // 침실 아이패드 2
 const IpadQuiz2: React.FC<IpadQuiz2Props> = ({
@@ -36,22 +36,24 @@ const IpadQuiz2: React.FC<IpadQuiz2Props> = ({
         <QuizLine>
           <QuizText>Q. 금리가 낮아지면 은행에 저축하려는 사람들이</QuizText>
           <Toggle
-            toggleId={1}
+            toggleId={0}
+            questionId={questionId}
             labelOne={"줄어들고"}
             labelTwo={"늘어나고"}
-            quiz={quizState}
-            setQuiz={setQuizState}
+            quizState={quizState}
+            setQuizState={setQuizState}
           />
         </QuizLine>
 
         <QuizLine>
           <QuizText>시장에 자금이 </QuizText>
           <Toggle
-            toggleId={2}
+            toggleId={1}
+            questionId={questionId}
             labelOne={"많아져"}
             labelTwo={"적어져"}
-            quiz={quizState}
-            setQuiz={setQuizState}
+            quizState={quizState}
+            setQuizState={setQuizState}
           />
           <QuizText>주식 시장에도 돈이 몰리게 되면서 </QuizText>
         </QuizLine>
@@ -59,18 +61,19 @@ const IpadQuiz2: React.FC<IpadQuiz2Props> = ({
         <QuizLine>
           <QuizText>주가가 </QuizText>
           <Toggle
-            toggleId={3}
+            toggleId={2}
+            questionId={questionId}
             labelOne={"상승"}
             labelTwo={"하락"}
-            quiz={quizState}
-            setQuiz={setQuizState}
+            quizState={quizState}
+            setQuizState={setQuizState}
           />
           <QuizText>할 가능성이 높아집니다.</QuizText>
         </QuizLine>
       </Quiz>
       <Move>
         <MoveBtn onClick={() => setQuizStep(1)}>◀ prev</MoveBtn>
-        <SubmitBtn onClick={clickSubmit}>submit ▶</SubmitBtn>
+        <MoveBtn onClick={() => setQuizStep(3)}>next ▶</MoveBtn>
       </Move>
     </Wrapper>
   );
