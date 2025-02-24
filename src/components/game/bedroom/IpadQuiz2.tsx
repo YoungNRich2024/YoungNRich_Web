@@ -8,12 +8,14 @@ interface IpadQuiz2Props {
   setQuizStep: React.Dispatch<React.SetStateAction<number>>; // 아이패드 퀴즈 단계 설정 함수
   quizState: QuizItem[]; // 아이패드 퀴즈 답안
   setQuizState: React.Dispatch<React.SetStateAction<QuizItem[]>>; // 아이패드 퀴즈 답안 선택 설정 함수
+  questionId: number;
 }
 // 침실 아이패드 2
 const IpadQuiz2: React.FC<IpadQuiz2Props> = ({
   setQuizStep,
   quizState,
   setQuizState,
+  questionId,
 }) => {
   // submit 클릭 시 실행되는 함수
   const clickSubmit = () => {
@@ -29,7 +31,7 @@ const IpadQuiz2: React.FC<IpadQuiz2Props> = ({
 
   return (
     <Wrapper>
-      <Title>오늘의 경제 퀴즈 #2</Title>
+      <Title>오늘의 경제 퀴즈 #{questionId}</Title>
       <Quiz>
         <QuizLine>
           <QuizText>Q. 금리가 낮아지면 은행에 저축하려는 사람들이</QuizText>

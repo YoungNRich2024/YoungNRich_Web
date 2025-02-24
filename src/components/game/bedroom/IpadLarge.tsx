@@ -55,7 +55,7 @@ const IpadLarge = () => {
               setQuizStep={setQuizStep}
               quizState={numQuizState}
               setQuizState={setNumQuizState}
-              choiceId={1}
+              questionId={1}
             />
           )}
           {quizStep === 2 && (
@@ -63,6 +63,7 @@ const IpadLarge = () => {
               setQuizStep={setQuizStep}
               quizState={quizState}
               setQuizState={setQuizState}
+              questionId={2}
             />
           )}
           {quizStep === 3 && <IpadQuizSuccess />}

@@ -7,23 +7,23 @@ interface IpadQuiz1Props {
   setQuizStep: React.Dispatch<React.SetStateAction<number>>; // 아이패드 퀴즈 단계 설정 함수
   quizState: NumQuizItem[]; // 아이패드 퀴즈 답안
   setQuizState: React.Dispatch<React.SetStateAction<NumQuizItem[]>>; // 아이패드 퀴즈 답안 선택 설정 함수
-  choiceId: number; // 문제 번호
+  questionId: number; // 문제 번호
 }
 // 침실 아이패드 퀴즈1
 const IpadQuiz1: React.FC<IpadQuiz1Props> = ({
   setQuizStep,
   quizState,
   setQuizState,
-  choiceId,
+  questionId,
 }) => {
-  const quizInfo = bedroomIpadQuizInfo.find((item) => item.id === choiceId); // 문제 정보
-  const checkedValue = quizState.find((item) => item.id === choiceId)?.checked; // 현재 선택한 번호
+  const quizInfo = bedroomIpadQuizInfo.find((item) => item.id === questionId); // 문제 정보
+  const checkedValue = quizState.find((item) => item.id === questionId)?.checked; // 현재 선택한 번호
 
   // 이미지 선택 시 실행되는 함수
   const clickChoice = (choice: 1 | 2 | 3 | 4) => {
     setQuizState((prevQuiz) =>
       prevQuiz.map((item) =>
-        item.id === choiceId ? { ...item, checked: choice } : item
+        item.id === questionId ? { ...item, checked: choice } : item
       )
     );
   };
@@ -36,7 +36,7 @@ const IpadQuiz1: React.FC<IpadQuiz1Props> = ({
 
   return (
     <Wrapper>
-      <Title>오늘의 경제 퀴즈 #{choiceId}</Title>
+      <Title>오늘의 경제 퀴즈 #{questionId}</Title>
       <Quiz>
         <QuizText>Q. {quizInfo?.question}</QuizText>
         <QuizChoice>
