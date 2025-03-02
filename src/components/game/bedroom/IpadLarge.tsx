@@ -22,16 +22,16 @@ const IpadLarge = () => {
   const [quizStep, setQuizStep] = useState(1); // 아이패드 퀴즈 단계
 
   const [boolQuizState, setBoolQuizState] = useState<BoolQuizItem[]>([
-    { id: 2, checked: false }, 
+    { id: 2, checked: false },
     { id: 2, checked: false },
     { id: 2, checked: false },
   ]); // 아이패드 2번째 퀴즈 답안 선택
 
   const [numQuizState, setNumQuizState] = useState<NumQuizItem[]>([
-    { id: 1, checked: undefined }, 
+    { id: 1, checked: undefined },
     { id: 3, checked: undefined },
     { id: 4, checked: undefined },
-  ]); // 아이패드 1, 3, 4번째 퀴즈 답안 선택 
+  ]); // 아이패드 1, 3, 4번째 퀴즈 답안 선택
 
   return (
     <Wrapper>
@@ -53,8 +53,25 @@ const IpadLarge = () => {
               questionId={2}
             />
           )}
-          {quizStep === 3 && <IpadQuizSuccess />}
-          {quizStep === 4 && <IpadQuizFail setQuizStep={setQuizStep} />}
+          {quizStep === 3 && (
+            <IpadQuiz1
+              setQuizStep={setQuizStep}
+              quizState={numQuizState}
+              setQuizState={setNumQuizState}
+              questionId={3}
+            />
+          )}
+          {quizStep === 4 && (
+            <IpadQuiz1
+              setQuizStep={setQuizStep}
+              quizState={numQuizState}
+              setQuizState={setNumQuizState}
+              boolQuizState={boolQuizState}
+              questionId={4}
+            />
+          )}
+          {quizStep === 5 && <IpadQuizFail setQuizStep={setQuizStep} />}
+          {quizStep === 6 && <IpadQuizSuccess />}
         </Screen>
       </PadContainer>
     </Wrapper>
@@ -91,12 +108,4 @@ const Screen = styled.div`
   width: 75%;
   height: 75%;
   padding: 3%;
-
-  // background-color: green;
-
-  /* @media screen and (orientation: landscape) and (max-height: 500px) and (max-aspect-ratio: 1.8),
-    (orientation: portrait) and (max-width: 500px) and (min-aspect-ratio: 0.56) {
-    // 화면 길쭉하지 않은 것들 예외 처리
-    height: 65%;
-  } */
 `;

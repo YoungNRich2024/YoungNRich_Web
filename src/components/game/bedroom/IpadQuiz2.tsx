@@ -2,7 +2,6 @@ import React from "react";
 import styled from "styled-components";
 import Toggle from "./Toggle";
 import { BoolQuizItem } from "./IpadLarge";
-import { bedroomEscapeData } from "../../../data/bedroomData";
 
 interface IpadQuiz2Props {
   setQuizStep: React.Dispatch<React.SetStateAction<number>>; // 아이패드 퀴즈 단계 설정 함수
@@ -17,18 +16,6 @@ const IpadQuiz2: React.FC<IpadQuiz2Props> = ({
   setQuizState,
   questionId,
 }) => {
-  // submit 클릭 시 실행되는 함수
-  const clickSubmit = () => {
-    // 퀴즈가 정답인지 확인
-    if (JSON.stringify(quizState) === JSON.stringify(bedroomEscapeData)) {
-      // alert("성공");
-      setQuizStep(3);
-    } else {
-      // alert("실패");
-      setQuizStep(4);
-    }
-  };
-
   return (
     <Wrapper>
       <Title>오늘의 경제 퀴즈 #{questionId}</Title>
@@ -132,9 +119,4 @@ const MoveBtn = styled(Title)`
   letter-spacing: 1px;
   text-shadow: 0px 0px 10px var(--black);
   cursor: pointer;
-`;
-
-const SubmitBtn = styled(MoveBtn)`
-  color: var(--gold4);
-  text-shadow: 0px 0px 10px var(--gold4);
 `;
